@@ -27,7 +27,10 @@ python manage.py migrate
 python manage.py runserver
 
 3) Open:
-http://127.0.0.1:8000/
+GitHub: https://github.com/atharsh45/bizlive-finance
+Live Demo: https://bizlive-finance.onrender.com
+
+It includes income and expense tracking, pending payments, UPI, demo payment, reports, alerts, and CSV export.
 
 Demo Payment test:
 - Add transaction
