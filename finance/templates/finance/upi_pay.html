@@ -1,0 +1,14 @@
+{% extends 'finance/base.html' %}
+{% block title %}UPI Pay{% endblock %}
+{% block content %}
+<section class="panel" style="max-width:650px;margin:auto;">
+    <h1>UPI Payment</h1>
+    <div class="action-card">
+        <p><b>Title:</b> {{ transaction.title }}</p>
+        <p><b>Amount:</b> ₹{{ transaction.amount }}</p>
+        <p><b>UPI ID:</b> {{ upi_id }}</p>
+    </div>
+    <a class="btn btn-primary" href="{{ upi_url }}">Pay with UPI</a>
+    <a class="btn btn-soft" href="{% url 'transactions' %}">Back</a>
+</section>
+{% endblock %}

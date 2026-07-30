@@ -1,0 +1,51 @@
+{% extends 'finance/base.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<div class="top">
+    <div><h1>{{ title }}</h1><p>Add income, expense, payment status and payment method.</p></div>
+    <a class="btn btn-soft" href="{% url 'transactions' %}">Back</a>
+</div>
+
+<section class="panel form-box">
+    <div class="form-layout">
+        <div class="form-left">
+            <h1>{{ title }}</h1>
+            <p>Use payment method <b>Razorpay</b> for payment total tracking.</p>
+            <p>For project demo, add a pending transaction and click <b>Demo Pay</b>.</p>
+            <div class="info-card"><b>Example</b><span>Client payment, Office rent, Salary, Sales income</span></div>
+        </div>
+        <div class="form-right">
+            <form method="POST">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="form-group">
+                        <label>{{ field.label }}:</label>
+                        {{ field }}
+                        {% if field.help_text %}<small>{{ field.help_text }}</small>{% endif %}
+                        {% if field.errors %}<div class="error">{{ field.errors }}</div>{% endif %}
+                    </div>
+                {% endfor %}
+                <button type="submit" class="btn btn-primary save-btn">Save Transaction</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<style>
+    .form-box { max-width: 1100px; margin: auto; padding: 0; overflow: hidden; }
+    .form-layout { display: grid; grid-template-columns: 0.9fr 1.1fr; min-height: 650px; }
+    .form-left { background: linear-gradient(135deg, #0f172a, #2563eb); color: white; padding: 55px 35px; }
+    .form-left h1 { font-size: 36px; margin-bottom: 25px; }
+    .form-left p { font-size: 17px; line-height: 1.5; margin-bottom: 22px; }
+    .info-card { margin-top: 35px; padding: 18px; border-radius: 18px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); }
+    .info-card b { display: block; margin-bottom: 8px; }
+    .info-card span { color: rgba(255,255,255,0.85); }
+    .form-right { padding: 35px; background: white; }
+    .form-group { margin-bottom: 18px; }
+    .form-group label { display: block; margin-bottom: 8px; font-weight: 800; color: #667085; }
+    .form-group input[type="checkbox"] { width: auto; transform: scale(1.2); margin-right: 8px; }
+    .save-btn { width: 100%; margin-top: 15px; font-size: 16px; }
+    .error { color: red; font-size: 13px; margin-top: 5px; }
+    @media (max-width: 900px) { .form-layout { grid-template-columns: 1fr; } .form-left { padding: 30px; } }
+</style>
+{% endblock %}

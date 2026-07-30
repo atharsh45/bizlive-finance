@@ -1,0 +1,37 @@
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Amount</th>
+        <th>Type</th>
+        <th>Method</th>
+        <th>Status</th>
+        <th>Payment Details</th>
+        <th>Action</th>
+    </tr>
+    {% for t in transactions %}
+    <tr>
+        <td><b>{{ t.title }}</b><br><small style="color: var(--muted);">{{ t.client_or_vendor|default:"No client/vendor" }}</small></td>
+        <td><b>₹{{ t.amount }}</b></td>
+        <td>{% if t.transaction_type == 'Income' %}<span class="pill income">Income</span>{% else %}<span class="pill expense">Expense</span>{% endif %}</td>
+        <td><span class="pill method">{{ t.payment_method }}</span></td>
+        <td>
+            {% if t.payment_status == 'Paid' %}<span class="pill paid">Paid</span>
+            {% elif t.payment_status == 'Payment Failed' %}<span class="pill failed">Payment Failed</span>
+            {% else %}<span class="pill pending">{{ t.payment_status }}</span>{% endif %}
+        </td>
+        <td><small>Order: {{ t.razorpay_order_id|default:"-" }}<br>Payment: {{ t.razorpay_payment_id|default:"-" }}<br>Ref: {{ t.reference_no|default:"-" }}</small></td>
+        <td>
+            {% if t.payment_status != 'Paid' %}
+                <a class="action-link" href="{% url 'demo_payment_success' t.id %}">Demo Pay</a><br>
+                <a class="action-link" href="{% url 'create_payment' t.id %}">Pay Now</a><br>
+                <a class="action-link" href="{% url 'mark_paid' t.id %}">Mark Paid</a><br>
+            {% endif %}
+            <a class="action-link" href="{% url 'edit_transaction' t.id %}">Edit</a><br>
+            {% if t.payment_method == 'UPI' and t.upi_id %}<a class="action-link" href="{% url 'upi_pay_link' t.id %}">UPI Link</a><br>{% endif %}
+            <a class="delete" href="{% url 'delete_transaction' t.id %}">Delete</a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="7" style="text-align:center;color:var(--muted);padding:30px;">No transactions yet.</td></tr>
+    {% endfor %}
+</table>

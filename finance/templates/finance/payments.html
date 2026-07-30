@@ -1,0 +1,6 @@
+{% extends 'finance/base.html' %}
+{% block title %}Payments{% endblock %}
+{% block content %}
+<div class="top"><div><h1>Payments</h1><p>Pending payments show Demo Pay and Pay Now options.</p></div><a class="btn btn-primary" href="{% url 'add_transaction' %}">+ Add Payment</a></div>
+<section class="panel">{% include 'finance/transaction_table.html' %}</section>
+{% endblock %}

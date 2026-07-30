@@ -1,0 +1,45 @@
+{% extends 'finance/base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="top">
+    <div>
+        <h1>Dashboard</h1>
+        <p><span class="live-dot"></span>Live finance overview</p>
+    </div>
+    <a class="btn btn-primary" href="{% url 'add_transaction' %}">+ Add Transaction</a>
+</div>
+
+<section class="hero">
+    <p>Current Balance</p>
+    <h2 id="live-balance">₹{{ balance }}</h2>
+    <div class="hero-grid">
+        <div class="hero-mini"><span>Total Income</span><b id="live-income">₹{{ income }}</b></div>
+        <div class="hero-mini"><span>Total Expense</span><b id="live-expense">₹{{ expense }}</b></div>
+        <div class="hero-mini"><span>Pending Income</span><b id="live-pending-income">₹{{ pending_income }}</b></div>
+        <div class="hero-mini"><span>Pending Expense</span><b id="live-pending-expense">₹{{ pending_expense }}</b></div>
+    </div>
+</section>
+
+<div class="cards">
+    <div class="card"><small>UPI Total</small><strong id="live-upi-total">₹{{ upi_total }}</strong></div>
+    <div class="card"><small>Razorpay Total</small><strong id="live-razorpay-total">₹{{ razorpay_total }}</strong></div>
+    <div class="card"><small>Overdue Amount</small><strong id="live-overdue">₹{{ overdue_amount }}</strong></div>
+    <div class="card"><small>Safe To Spend</small><strong id="live-safe">₹{{ safe_to_spend }}</strong></div>
+</div>
+
+<div class="grid">
+    <section class="panel">
+        <h2>Recent Transactions</h2>
+        {% include 'finance/transaction_table.html' with transactions=recent_transactions %}
+    </section>
+    <section class="panel">
+        <h2>Decision Radar</h2>
+        <div class="score"><div id="live-score">{{ score }}</div></div>
+        <h2 style="text-align:center;" id="live-status">{{ decision_status }}</h2>
+        {% for alert in alerts %}
+            <div class="action-card">{{ alert }}</div>
+        {% endfor %}
+        <p style="color:var(--muted);text-align:center;">Last updated: <span id="live-time">Now</span></p>
+    </section>
+</div>
+{% endblock %}

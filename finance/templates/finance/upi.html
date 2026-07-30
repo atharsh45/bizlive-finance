@@ -1,0 +1,6 @@
+{% extends 'finance/base.html' %}
+{% block title %}UPI{% endblock %}
+{% block content %}
+<div class="top"><div><h1>UPI Payments</h1><p>Transactions using UPI method.</p></div><a class="btn btn-primary" href="{% url 'add_transaction' %}">+ Add UPI Record</a></div>
+<section class="panel">{% include 'finance/transaction_table.html' %}</section>
+{% endblock %}

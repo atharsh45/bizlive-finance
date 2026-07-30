@@ -1,0 +1,19 @@
+{% extends 'finance/base.html' %}
+{% block title %}Demo Payment Success{% endblock %}
+{% block content %}
+<section class="panel" style="max-width:750px;margin:auto;text-align:center;">
+    <h1>Payment Successful ✅</h1>
+    <p style="font-size:18px;color:var(--muted);">Demo payment completed using <b>{{ selected_method }}</b></p>
+    <div class="action-card" style="text-align:left;">
+        <p><b>Title:</b> {{ transaction.title }}</p>
+        <p><b>Amount:</b> ₹{{ transaction.amount }}</p>
+        <p><b>Status:</b> {{ transaction.payment_status }}</p>
+        <p><b>Method:</b> {{ transaction.payment_method }}</p>
+        <p><b>Order ID:</b> {{ transaction.razorpay_order_id }}</p>
+        <p><b>Payment ID:</b> {{ transaction.razorpay_payment_id }}</p>
+        <p><b>Reference No:</b> {{ transaction.reference_no }}</p>
+    </div>
+    <a class="btn btn-primary" href="{% url 'dashboard' %}">Back to Dashboard</a>
+    <a class="btn btn-soft" href="{% url 'transactions' %}">Transactions</a>
+</section>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends 'finance/base.html' %}
+{% block title %}Alerts{% endblock %}
+{% block content %}
+<div class="top"><div><h1>Alerts</h1><p>Smart finance warnings.</p></div><a class="btn btn-primary" href="{% url 'add_transaction' %}">+ Add Transaction</a></div>
+<section class="panel">
+    <h2>Decision Radar: {{ decision_status }}</h2>
+    {% for alert in alerts %}<div class="action-card">{{ alert }}</div>{% endfor %}
+</section>
+{% endblock %}

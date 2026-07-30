@@ -1,0 +1,24 @@
+{% extends 'finance/base.html' %}
+{% block title %}Demo Payment{% endblock %}
+{% block content %}
+<div class="top"><div><h1>Demo Payment Gateway</h1><p>Select payment option and complete payment.</p></div><a class="btn btn-soft" href="{% url 'transactions' %}">Back</a></div>
+<section class="panel" style="max-width:850px;margin:auto;">
+    <h2>Pay ₹{{ transaction.amount }}</h2>
+    <div class="action-card">
+        <b>Title:</b> {{ transaction.title }}<br>
+        <b>Client/Vendor:</b> {{ transaction.client_or_vendor|default:"-" }}<br>
+        <b>Status:</b> {{ transaction.payment_status }}
+    </div>
+    <form method="POST">
+        {% csrf_token %}
+        <h3>Select Payment Option</h3>
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:15px;">
+            <label style="border:1px solid var(--line);padding:18px;border-radius:18px;background:white;cursor:pointer;"><input type="radio" name="payment_method" value="Razorpay Demo" checked style="width:auto;"> <b>⚡ Razorpay Demo</b><p style="color:var(--muted);margin:8px 0 0;">Project demo payment</p></label>
+            <label style="border:1px solid var(--line);padding:18px;border-radius:18px;background:white;cursor:pointer;"><input type="radio" name="payment_method" value="UPI" style="width:auto;"> <b>📲 UPI</b><p style="color:var(--muted);margin:8px 0 0;">Google Pay / PhonePe / Paytm</p></label>
+            <label style="border:1px solid var(--line);padding:18px;border-radius:18px;background:white;cursor:pointer;"><input type="radio" name="payment_method" value="Card" style="width:auto;"> <b>💳 Card</b><p style="color:var(--muted);margin:8px 0 0;">Debit card / Credit card</p></label>
+            <label style="border:1px solid var(--line);padding:18px;border-radius:18px;background:white;cursor:pointer;"><input type="radio" name="payment_method" value="Net Banking" style="width:auto;"> <b>🏦 Net Banking</b><p style="color:var(--muted);margin:8px 0 0;">Bank payment</p></label>
+        </div>
+        <button class="btn btn-primary" style="width:100%;margin-top:22px;" type="submit">Pay ₹{{ transaction.amount }}</button>
+    </form>
+</section>
+{% endblock %}
